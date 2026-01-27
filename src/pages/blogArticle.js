@@ -1,11 +1,8 @@
 import '../styles/style.css'
-import gsap from 'gsap'
 import { initLenis } from '../utils/utility'
-import { initNavbar } from '../utils/navbar'
 
 export function blogArticleInit() {
   console.log('blog Article init')
 
   initLenis()
-  initNavbar()
 }

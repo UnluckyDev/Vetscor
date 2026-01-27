@@ -1,7 +1,5 @@
 import '../styles/style.css'
-import gsap from 'gsap'
 import { initLenis } from '../utils/utility'
-import { initNavbar } from '../utils/navbar'
 
 // Stato del form
 let currentStep = 1
@@ -67,14 +65,24 @@ let alertEl = null
 let alertIndietroBtn = null
 let alertCheckoutBtn = null
 
+export function corsoInit() {
+  console.log('corso init')
+
+  initLenis()
+  // initNavbar()
+  initIscrizioneForm()
+}
+
 /**
  * Inizializza i riferimenti DOM per ogni campo del form
  */
 function initFormFields() {
-  Object.keys(formFields).forEach(key => {
+  Object.keys(formFields).forEach((key) => {
     const input = document.getElementById(fieldMapping[key])
     formFields[key].input = input
-    formFields[key].messageEl = input?.parentElement.querySelector('.form_input_message')
+    formFields[key].messageEl = input?.parentElement.querySelector(
+      '.form_input_message'
+    )
   })
 
   // Riferimenti ai panel
@@ -141,7 +149,10 @@ function calculateAge(birthDateString) {
   let age = today.getFullYear() - birthDate.getFullYear()
   const monthDiff = today.getMonth() - birthDate.getMonth()
 
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
     age--
   }
 
@@ -197,7 +208,7 @@ function validateCurrentStep() {
   const fieldsToValidate = stepFields[currentStep]
   let hasErrors = false
 
-  fieldsToValidate.forEach(key => {
+  fieldsToValidate.forEach((key) => {
     const field = formFields[key]
     field.value = field.input?.value || ''
     field.isValid = validateField(key, field.value)
@@ -351,7 +362,7 @@ function initIscrizioneForm() {
 
   // Blocca l'evento submit del form (tasto Invio)
   if (form) {
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', (e) => {
       // Permetti il submit solo se stiamo andando al checkout
       if (!submitBtn?.disabled) {
         return true
@@ -365,12 +376,4 @@ function initIscrizioneForm() {
   indietroBtn?.addEventListener('click', handleIndietroClick)
   alertIndietroBtn?.addEventListener('click', handleAlertIndietroClick)
   alertCheckoutBtn?.addEventListener('click', handleCheckoutClick)
-}
-
-export function corsoInit() {
-  console.log('corso init')
-
-  initLenis()
-  // initNavbar()
-  initIscrizioneForm()
 }

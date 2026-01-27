@@ -9,6 +9,7 @@ import { initLenis } from '../utils/utility'
 export function homepageInit() {
   console.log('homepage init')
 
+  initLenis()
   // initReviewsSwiper()
 }
 
