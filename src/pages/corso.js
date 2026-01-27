@@ -62,6 +62,7 @@ let indietroBtn = null
 let submitBtn = null
 let form = null
 let alertEl = null
+let alertCard = null
 let alertIndietroBtn = null
 let alertCheckoutBtn = null
 
@@ -103,6 +104,7 @@ function initFormFields() {
 
   // Riferimenti all'alert
   alertEl = document.querySelector('.alert_pre-stripe')
+  alertCard = alertEl?.querySelector('.alert_card')
   const alertButtons = alertEl?.querySelectorAll('.btn-icon-link')
   alertIndietroBtn = alertButtons?.[0]
   alertCheckoutBtn = alertButtons?.[1]
@@ -239,6 +241,7 @@ function validateCurrentStep() {
 function showAlert() {
   if (alertEl) {
     alertEl.style.display = 'flex'
+    window.lenis?.stop()
   }
 }
 
@@ -248,6 +251,16 @@ function showAlert() {
 function hideAlert() {
   if (alertEl) {
     alertEl.style.display = 'none'
+    window.lenis?.start()
+  }
+}
+
+/**
+ * Gestisce il click sull'overlay dell'alert (fuori dalla card)
+ */
+function handleAlertOverlayClick(e) {
+  if (e.target === alertEl) {
+    hideAlert()
   }
 }
 
@@ -376,4 +389,5 @@ function initIscrizioneForm() {
   indietroBtn?.addEventListener('click', handleIndietroClick)
   alertIndietroBtn?.addEventListener('click', handleAlertIndietroClick)
   alertCheckoutBtn?.addEventListener('click', handleCheckoutClick)
+  alertEl?.addEventListener('click', handleAlertOverlayClick)
 }
