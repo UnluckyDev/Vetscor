@@ -1,18 +1,15 @@
 import '../styles/style.css'
-import Lenis from '@studio-freight/lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CustomEase } from 'gsap/CustomEase'
 import { Draggable } from 'gsap/Draggable'
 import { InertiaPlugin } from 'gsap/InertiaPlugin'
 import { initLenis } from '../utils/utility'
-import { initNavbar } from '../utils/navbar'
 
 export function homepageInit() {
   console.log('homepage init')
 
-  initReviewsSwiper()
-  initNavbar()
+  // initReviewsSwiper()
 }
 
 function initReviewsSwiper() {

@@ -9,10 +9,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CustomEase } from 'gsap/CustomEase'
 import { SplitText } from 'gsap/SplitText'
-import { fotovoltaicoInit } from '../pages/fotovoltaico'
-import { industrialiInit } from '../pages/industriali'
-import { catalogoInit } from '../pages/catalogo'
 import { contattiInit } from '../pages/contatti'
+import { corsoInit } from '../pages/corso'
 
 gsap.registerPlugin(CustomEase, SplitText)
 
@@ -38,6 +36,9 @@ export function getPageInit() {
   if (page.includes('/blog-post/')) {
     page = '/blog-post'
   }
+  if (page.includes('/corsi/')) {
+    page = '/corso'
+  }
 
   switch (page) {
     case '/':
@@ -46,20 +47,11 @@ export function getPageInit() {
     case '/chi-siamo':
       aboutInit()
       break
-    case '/fotovoltaico-detrazione':
-      fotovoltaicoInit()
+    case '/corsi':
+      //corsiInit()
       break
-    case '/fotovoltaico':
-      fotovoltaicoInit()
-      break
-    case '/impianti-residenziali':
-      residenzialiInit()
-      break
-    case '/impianti-industriali':
-      industrialiInit()
-      break
-    case '/catalogo-prodotti':
-      catalogoInit()
+    case '/corso':
+      corsoInit()
       break
     case '/contatti':
       contattiInit()
