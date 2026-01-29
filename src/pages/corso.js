@@ -13,7 +13,7 @@ const formFields = {
   partitaIVA: { value: '', input: null, messageEl: null, isValid: true },
   indirizzo: { value: '', input: null, messageEl: null, isValid: true },
   cap: { value: '', input: null, messageEl: null, isValid: true },
-  paese: { value: '', input: null, messageEl: null, isValid: true },
+  comune: { value: '', input: null, messageEl: null, isValid: true },
   provincia: { value: '', input: null, messageEl: null, isValid: true },
   email: { value: '', input: null, messageEl: null, isValid: true },
   date: { value: '', input: null, messageEl: null, isValid: true },
@@ -22,7 +22,7 @@ const formFields = {
 // Campi per ogni step
 const stepFields = {
   1: ['nome', 'cognome', 'codiceFiscale', 'partitaIVA'],
-  2: ['indirizzo', 'cap', 'paese', 'provincia'],
+  2: ['indirizzo', 'cap', 'comune', 'provincia'],
   3: ['email', 'date'],
 }
 
@@ -34,7 +34,7 @@ const fieldMapping = {
   partitaIVA: 'PIVA',
   indirizzo: 'Indirizzo',
   cap: 'CAP',
-  paese: 'Paese',
+  comune: 'Comune',
   provincia: 'Provincia',
   email: 'Email',
   date: 'Date',
@@ -48,7 +48,7 @@ const errorMessages = {
   partitaIVA: 'Inserisci una P.IVA valida (11 cifre)',
   indirizzo: 'Inserisci il tuo indirizzo',
   cap: 'Inserisci un CAP valido (5 cifre)',
-  paese: 'Inserisci il paese',
+  comune: 'Inserisci il comune',
   provincia: 'Inserisci la provincia',
   email: 'Inserisci un indirizzo email valido',
   date: 'Inserisci la tua data di nascita',
@@ -125,8 +125,8 @@ function validateField(key, value) {
       // Pattern italiano: 6 lettere + 2 cifre + 1 lettera + 2 cifre + 1 lettera + 3 cifre + 1 lettera
       return /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i.test(trimmed)
     case 'partitaIVA':
-      // 11 cifre esatte
-      return /^\d{11}$/.test(trimmed)
+      // Facoltativa: valida se vuota o se ha 11 cifre esatte
+      return trimmed.length === 0 || /^\d{11}$/.test(trimmed)
     case 'date':
       // Verifica che sia una data valida
       return trimmed.length > 0 && !isNaN(Date.parse(trimmed))
