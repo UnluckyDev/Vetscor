@@ -128,8 +128,17 @@ function validateField(key, value) {
       // Facoltativa: valida se vuota o se ha 11 cifre esatte
       return trimmed.length === 0 || /^\d{11}$/.test(trimmed)
     case 'date':
-      // Verifica che sia una data valida
-      return trimmed.length > 0 && !isNaN(Date.parse(trimmed))
+      // Verifica che sia una data valida (formato gg-mm-aaaa)
+      if (trimmed.length === 0) return false
+      const dateParts = trimmed.split('-')
+      if (dateParts.length !== 3) return false
+      const [day, month, year] = dateParts.map(Number)
+      const dateObj = new Date(year, month - 1, day)
+      return (
+        dateObj.getFullYear() === year &&
+        dateObj.getMonth() === month - 1 &&
+        dateObj.getDate() === day
+      )
     default:
       return trimmed.length > 0
   }
@@ -146,7 +155,9 @@ function getErrorMessage(key) {
  * Calcola se l'utente è under 35 basandosi sulla data di nascita
  */
 function calculateAge(birthDateString) {
-  const birthDate = new Date(birthDateString)
+  // Parse del formato gg-mm-aaaa
+  const [day, month, year] = birthDateString.split('-').map(Number)
+  const birthDate = new Date(year, month - 1, day)
   const today = new Date()
   let age = today.getFullYear() - birthDate.getFullYear()
   const monthDiff = today.getMonth() - birthDate.getMonth()
