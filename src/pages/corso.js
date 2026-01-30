@@ -384,14 +384,14 @@ function initIscrizioneForm() {
     submitBtn.disabled = true
   }
 
-  // Blocca l'evento submit del form (tasto Invio)
+  // Blocca il tasto Invio su tutti gli input del form
   if (form) {
-    form.addEventListener('submit', (e) => {
-      // Permetti il submit solo se stiamo andando al checkout
-      if (!submitBtn?.disabled) {
-        return true
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault()
+        // Simula il click sul pulsante Avanti quando si preme Invio
+        avantiBtn?.click()
       }
-      e.preventDefault()
     })
   }
 
