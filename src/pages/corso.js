@@ -16,6 +16,7 @@ const formFields = {
   comune: { value: '', input: null, messageEl: null, isValid: true },
   provincia: { value: '', input: null, messageEl: null, isValid: true },
   email: { value: '', input: null, messageEl: null, isValid: true },
+  cellulare: { value: '', input: null, messageEl: null, isValid: true },
   date: { value: '', input: null, messageEl: null, isValid: true },
 }
 
@@ -23,7 +24,7 @@ const formFields = {
 const stepFields = {
   1: ['nome', 'cognome', 'codiceFiscale', 'partitaIVA'],
   2: ['indirizzo', 'cap', 'comune', 'provincia'],
-  3: ['email', 'date'],
+  3: ['email', 'cellulare', 'date'],
 }
 
 // Mapping tra chiavi dell'oggetto e ID degli elementi nel DOM
@@ -37,6 +38,7 @@ const fieldMapping = {
   comune: 'Comune',
   provincia: 'Provincia',
   email: 'Email',
+  cellulare: 'Cellulare',
   date: 'Date',
 }
 
@@ -51,6 +53,7 @@ const errorMessages = {
   comune: 'Inserisci il comune',
   provincia: 'Inserisci la provincia',
   email: 'Inserisci un indirizzo email valido',
+  cellulare: 'Inserisci un numero di cellulare valido',
   date: 'Inserisci la tua data di nascita',
 }
 
@@ -127,6 +130,9 @@ function validateField(key, value) {
     case 'partitaIVA':
       // Facoltativa: valida se vuota o se ha 11 cifre esatte
       return trimmed.length === 0 || /^\d{11}$/.test(trimmed)
+    case 'cellulare':
+      // Solo cifre, + e - ammessi; almeno un carattere
+      return trimmed.length > 0 && /^[0-9+\-]+$/.test(trimmed)
     case 'date':
       // Verifica che sia una data valida (formato gg-mm-aaaa)
       if (trimmed.length === 0) return false
